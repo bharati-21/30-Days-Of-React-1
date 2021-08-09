@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>React Day 2</title>
+
+        <style>
+            * {
+                box-sizing:border-box;
+                margin: 0;
+                padding: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            .hero h1{
+                margin-bottom: 0.5rem;
+            }
+
+            .hero h2 {
+                margin-bottom: 1.5rem;
+            }
+
+            .main {
+                padding: 2rem 3rem;
+                width: 100%;
+                background-color: slateblue;
+                color: #fff;
+            }
+
+            .main .prerequisite {
+                font-size: 1.2rem;
+                font-weight: bold;
+            }
+
+            .footer {
+                background: lightskyblue;
+                font-size: 0.9rem;
+                font-weight: bold;
+                padding: 1rem;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root"></div>
+        
+        <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+        <script type="text/babel">
+            console.log(React);
+            const root = document.getElementById("root");
+
+            const firstName = "Bharati";
+            const lastName = "Subramanian";
+            const age = new Date().getFullYear() - 1999;
+            const heading = "Welcome to 30 days of React";
+            const date = new Date().getDate();
+            const month = new Date().getMonth();
+            const year =  new Date().getFullYear();
+
+            const fullDate = date + "-" + month + "-" + year;
+
+            const headerStyles = {
+                textAlign: "center",
+                fontWeight: 'bold',
+                backgroundColor: 'lightskyblue',
+                padding: '1rem',
+            }
+
+            const prerequisite = ['HTML', 'CSS', 'JavaScript'];
+
+            const header = (
+                <header style={headerStyles} className="hero">
+                    <h1>{heading}</h1>
+                    <h2>Getting started with 30 days of React</h2>
+                    <p>{firstName} {lastName}</p>
+                    <small>{fullDate}</small>
+                </header>
+            )
+
+            const main = (
+                <main className="main">
+                    <p className="prerequisite">Prerequisites for ReactJS</p>
+                    <ul>
+                        {
+                            prerequisite.map((p) => {
+                                return <li>{p}</li>
+                            })
+                        }
+                    </ul>
+                </main>
+            )
+
+            const footer = (
+                <footer className="footer">
+                    <p>&copy; 2021</p>
+                </footer>
+            )
+
+            const app = (
+                <div>
+                    {header}
+                    {main}
+                    {footer}
+                </div>
+            )
+            ReactDOM.render(app, root);
+        </script>
+    </body>
+</html>
