@@ -2,55 +2,46 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 
-const Country = ({
-  country: { name, capital, flag, languages, population, currency },
-}) => {
-  const formatedCapital =
-    capital.length > 0 ? (
-      <>
-        <span>Capital: </span>
-        {capital}
-      </>
-    ) : (
-      ''
-    )
-  const formatLanguage = languages.length > 1 ? `Languages` : `Language`
-  console.log(languages)
+export function Cat (props) {
+  console.log(props);
+  let catImage = props.cat.image.url;
   return (
-    <div className='country'>
-      <div className='country_flag'>
-        <img src={flag} alt={name} />
-      </div>
-      <h3 className='country_name'>{name.toUpperCase()}</h3>
-      <div class='country_text'>
-        <p>{formatedCapital}</p>
-        <p>
-          <span>{formatLanguage}: </span>
-          {languages.map((language) => language.name).join(', ')}
-        </p>
-        <p>
-          <span>Population: </span>
-          {population.toLocaleString()}
-        </p>
-        <p>
-          <span>Currency: </span>
-          {currency}
-        </p>
-      </div>
-    </div>
-  )
-}
+    <>
+      <div className="cat-about" style= {{
+        margin: "1rem 1rem 2rem 1rem",
+        border: "1px solid #333",
+        padding: "1rem"
+      }}>
+        <img src={catImage} style={{width: "100%"}}></img>
+        <p className="cat-name"><span style={{fontWeight: "bold"}}>Name: </span>{props.cat.name}</p>
+        <p className="cat-temperament"><span style={{fontWeight: "bold"}}>Temperament: </span>{props.cat.temperament}</p>
+        <p className="cat-life-span"><span style={{fontWeight: "bold"}}>Life Span: </span>{props.cat.life_span} years</p>
+        <p className="cat-weight"><span style={{fontWeight: "bold"}}>Weight: </span>{props.cat.weight.metric} kg</p>
+        <p className="cat-description"><span style={{fontWeight: "bold"}}>Description: </span>{props.cat.description}</p>
+        </div>
+    </>
+  );
+  // return <p>{catImage}</p>
+  }
+
+function CalculateAverageWeight(props) {
+    console.log(props);
+    // let weight = Object.values(props.weight.weight);
+    // console.log(weight);
+
+  }
 
 class App extends Component {
   state = {
     data: [],
   }
 
+  
   componentDidMount() {
-    this.fetchCountryData()
+    this.fetchCatData();
   }
-  fetchCountryData = async () => {
-    const url = 'https://restcountries.eu/rest/v2/all'
+  fetchCatData = async () => {
+    const url = 'https://api.thecatapi.com/v1/breeds?limit=10'
     try {
       const response = await axios.get(url)
       const data = await response.data
@@ -62,19 +53,28 @@ class App extends Component {
     }
   }
 
+  
+  
+  
   render() {
+
+    let weight = this.state.data;
+    let weightProps = {weight: weight};
+    console.log(weight);
     return (
       <div className='App'>
         <h1>React Component Life Cycle</h1>
         <h1>Calling API</h1>
-        <div>
-          <p>There are {this.state.data.length} countries in the api</p>
-          <div className='countries-wrapper'>
-            {this.state.data.map((country) => (
-              <Country country={country} />
-            ))}
-          </div>
+        <div className='cat-wrapper' style={{
+            maxWidth: "900px",
+            margin: "2rem auto"}}>
+          
+            {this.state.data.map((cat) => {
+              return <Cat cat={cat}></Cat>
+            })}
         </div>
+
+        <CalculateAverageWeight weight = {weightProps} />
       </div>
     )
   }
