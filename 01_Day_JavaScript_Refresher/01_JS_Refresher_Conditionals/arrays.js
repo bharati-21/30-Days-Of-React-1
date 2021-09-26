@@ -407,5 +407,4 @@ else {
     const rightCountries = countries.slice(cMid+1, countriesLen);
     console.log(`Middle element: ${countries[cMid-1]}`)
     console.log(leftCountries.length, rightCountries.length);
-
 }
